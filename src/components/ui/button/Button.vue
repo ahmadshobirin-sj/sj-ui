@@ -9,8 +9,9 @@ interface Props extends PrimitiveProps {
     variant?: ButtonVariants['variant']
     severity?: ButtonVariants['severity']
     size?: ButtonVariants['size']
-    class?: HTMLAttributes['class']
     loading?: boolean
+    disabled?: boolean
+    class?: HTMLAttributes['class']
     iconStart?: LucideIcon
     iconEnd?: LucideIcon
 }
@@ -21,12 +22,8 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <Primitive
-        :as="as"
-        :as-child="asChild"
-        :class="cn(buttonVariants({ variant, size, severity }), props.class)"
-        :disabled="loading"
-    >
+    <Primitive :as="as" :as-child="asChild" :class="cn(buttonVariants({ variant, size, severity }), props.class)"
+        :disabled="disabled || loading">
         <template v-if="loading">
             <Loader2 class="animate-spin" />
         </template>
